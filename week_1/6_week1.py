@@ -1,2 +1,2 @@
-username = raw_input("Enter username:")
-print("Username is: " + username)
+user_name = input()
+print("your username is: "+user_name)

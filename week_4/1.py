@@ -23,7 +23,7 @@ itemPatternText = r"(?P<name>.*)\n{1}(?P<count>.*)x(?P<price>.*)\n{1}(?P<total1>
 itemPattern = re.compile(itemPatternText)
 
 
-items = [["БИН","ЗНМ","Касса","Чек","Наименование товара","Наименование товара","Цена за единиц","Кол-во","Сумма","Дата и Время","Адрес"]]
+items = [["БИН","ЗНМ","Касса","Чек","Наименование товара","Цена за единиц","Кол-во","Сумма","Дата и Время","Адрес"]]
 
 for m in re.finditer(itemPattern, text):
     items.append([BINText,ZNMText,KASSAText,BILLText,m.group("name").strip(),m.group("price").strip(), m.group("count").strip(),m.group("total1").strip(),DATEANDTIMEText,ADRESSText])

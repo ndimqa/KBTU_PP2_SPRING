@@ -36,13 +36,6 @@ def draw_dashed_lines(surf, color, points, width, dash_len):
     for i in range(len(points) - 1):
         draw_dashed_line(surf, color, points[i], points[i + 1], width, dash_len)
 
-def get_points(f, xrange, step, kx, ky, center):
-    num = math.ceil( (xrange[1] - xrange[0]) / step )
-    x_values = (x * step + xrange[0] for x in range(num + 1))
-    func = ((kx * x, ky * f(x)) for x in x_values)
-    points = tuple(map(lambda x: (x[0] + center[0], -x[1] + center[1]), func))
-    return points
-
 #variables for screen 
 WIDTH = 800
 HEIGTH = 600
@@ -60,15 +53,7 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 
 # variables for graphics
-k = 4/5
-xrange = (-3 * math.pi, 3 * math.pi)
-step = 0.1
-kx = (k * 800) / (6 * math.pi)
-ky = (k * 600) / 2
-center = (800 // 2, 600 // 2)
-
-sin_points = get_points(math.sin, xrange, step, kx, ky, center) #sin points 
-cos_points = get_points(math.cos, xrange, step, kx, ky, center) #cos points
+PI = math.pi
 
 # made legend
 legend = pygame.Surface((110,50))
@@ -170,12 +155,20 @@ while done:
         x = font_l.render(n, True, (0, 0, 0))
         screen.blit(x, (30 , 59 * (i + 1)  ))
     
-    # Draw functions
-    draw_dashed_lines(screen, BLUE, cos_points, 2, 3)
-    pygame.draw.aalines(screen, RED, False, sin_points, 2)
+    # Draw sin graph
+    for x in range(100, 700):
+        sin_y1 = 240 * math.sin((x - 100) / 100 * PI)
+        sin_y2 = 240 * math.sin((x - 99) / 100 * PI)
+        pygame.draw.aalines(screen, RED, False, [(x, 300 + sin_y1), ((x + 1), 300 + sin_y2)])
+
+    #Draw cos graph
+    for x in range(100, 700, 3):
+        cos_y1 = 240 * math.cos((x - 100) / 100 * PI)
+        cos_y2 = 240 * math.cos((x - 99) / 100 * PI)
+        pygame.draw.aalines(screen, BLUE, False, [(x, 300 + cos_y1), ((x + 1), 300 + cos_y2)])
     
     # Inserting and fill legend 
-    screen.blit(legend,(480,63))
+    screen.blit(legend,(470,53))
     legend.blit(text_1,(5 ,45 - text_1.get_width()//2)) #cos
     p = [(60, 40 ),(90, 40)]
     draw_dashed_lines(legend, BLUE,p, 3,3)

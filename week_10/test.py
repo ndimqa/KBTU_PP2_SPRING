@@ -18,10 +18,18 @@ DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Game")
 
 # Background
-BACKGROUND = pygame.image.load("AnimatedStreet.png")
-
+BACKGROUND = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+BACKGROUND[0] = pygame.image.load("AnimatedStreet1.png")
+BACKGROUND[1] = pygame.image.load("AnimatedStreet2.png")
+BACKGROUND[2] = pygame.image.load("AnimatedStreet3.png")
+BACKGROUND[3] = pygame.image.load("AnimatedStreet4.png")
+BACKGROUND[4] = pygame.image.load("AnimatedStreet5.png")
+BACKGROUND[5] = pygame.image.load("AnimatedStreet6.png")
+BACKGROUND[6] = pygame.image.load("AnimatedStreet7.png")
+BACKGROUND[7] = pygame.image.load("AnimatedStreet8.png")
+i = 0
 # FPS
-FPS = 60
+FPS = 30
 timer = pygame.time.Clock()
 
 # Setting up Fonts
@@ -38,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         center = (WIDTH // 2, HEIGHT - self.image.get_height() // 2)
         self.rect = self.surf.get_rect(center=center)
 
-        self.speed = 300
+        self.speed = 100
  
     def move(self):
         pixels_per_frame = self.speed // FPS
@@ -139,7 +147,7 @@ while not game_done:
                             game_done = True
             done = True
 
-        DISPLAYSURF.blit(BACKGROUND, (0, 0))
+        DISPLAYSURF.blit(BACKGROUND[i], (0, 0))
 
         scores = font_small.render(str(score), True, BLACK)
         DISPLAYSURF.blit(scores, (10, 10))
@@ -147,6 +155,11 @@ while not game_done:
         for sprite in all_sprites:
             sprite.move()
             sprite.draw(DISPLAYSURF)
+            
+        if i > 6:
+            i = 0
+        else:
+            i += 1
 
         pygame.display.flip()
 

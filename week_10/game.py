@@ -12,10 +12,19 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Background
-BACKGROUND = pygame.image.load("AnimatedStreet.png")
+BACKGROUND = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+BACKGROUND[0] = pygame.image.load("AnimatedStreet1.png")
+BACKGROUND[1] = pygame.image.load("AnimatedStreet2.png")
+BACKGROUND[2] = pygame.image.load("AnimatedStreet3.png")
+BACKGROUND[3] = pygame.image.load("AnimatedStreet4.png")
+BACKGROUND[4] = pygame.image.load("AnimatedStreet5.png")
+BACKGROUND[5] = pygame.image.load("AnimatedStreet6.png")
+BACKGROUND[6] = pygame.image.load("AnimatedStreet7.png")
+BACKGROUND[7] = pygame.image.load("AnimatedStreet8.png")
+i = 0
 
 # Screen
-WIDTH, HEIGHT = BACKGROUND.get_size()
+WIDTH, HEIGHT = 400, 600
 DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Game")
 
@@ -108,10 +117,10 @@ class Enemy(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
-INC_SPEED = 1
+SPEED = 1
 
 # Creating our own event
-pygame.time.set_timer(INC_SPEED, 1000)
+pygame.time.set_timer(SPEED, 1000)
 
 game_done = False
 while not game_done:
@@ -169,7 +178,7 @@ while not game_done:
             pygame.mixer.Sound('get_coin.mp3').play()
             coin = coin + 1
 
-        DISPLAYSURF.blit(BACKGROUND, (0, 0))
+        DISPLAYSURF.blit(BACKGROUND[i], (0, 0))
         
         coins = font_small.render(str(coin), True, BLACK)
         scores = font_small.render(str(score), True, BLACK)
@@ -179,6 +188,11 @@ while not game_done:
         for sprite in all_sprites:
             sprite.move()
             sprite.draw(DISPLAYSURF)
+        
+        if i > 6:
+            i = 0
+        else:
+            i += 1
 
         pygame.display.flip()
 

@@ -88,7 +88,7 @@ class Enemy(pygame.sprite.Sprite):
         pixels_per_frame = self.speed // FPS
         self.rect.move_ip(0, pixels_per_frame)
         if self.rect.top > HEIGHT:
-            INC_SPEED = random.randint(100,1000000)
+            INC_SPEED = random.randint(1,10)
             score += 1
             center = (random.randint(self.width // 2, WIDTH - self.width // 2), 
                     -self.height // 2)
